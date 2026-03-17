@@ -86,3 +86,30 @@ terraform destroy -var-file=$VAR_FILE
 
 Fix: This probably means point 5 from prerequisites is not fulfilled.
 
+
+```
+╷
+│ Error: local-exec provisioner error
+│ 
+│   with module.backend.null_resource.package,
+│   on modules/backend/build.tf line 15, in resource "null_resource" "package":
+│   15:   provisioner "local-exec" {
+│ 
+│ Error running command 'rm -rf modules/backend/build/repo modules/backend/build/package
+│ git clone git@github.com:<owner>/<project>-backend.git -b <branch> --depth 1 modules/backend/build/repo
+│ docker build \
+│   -f ./modules/backend/build/Dockerfile \
+│   --target artifact \
+│   --platform linux/arm64 \
+│   --output type=local,dest=modules/backend/build/package \
+│   --build-arg python_version=3.14 \
+│   modules/backend/build
+│ ': exit status 1. Output: Cloning into 'modules/backend/build/repo'...
+│ ERROR: Cannot connect to the Docker daemon at unix:///xxx/.docker/run/docker.sock. Is the docker daemon running?
+│ 
+╵
+```
+
+Fix: This probably means point 3 from prerequisites is not fulfilled. To be able to create a zip package for AWS lambda I used docker. You need to install `Docker Desktop` https://www.docker.com/products/docker-desktop/ or check podman and run it before `terraform apply`.
+
+
