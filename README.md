@@ -59,3 +59,30 @@ Service: lambda
 ```
 terraform destroy -var-file=$VAR_FILE
 ```
+
+# Common errors
+```
+╷
+│ Error: failed to make http request
+│ 
+│   with module.frontend.cloudflare_pages_project.this,
+│   on modules/frontend/main.tf line 1, in resource "cloudflare_pages_project" "this":
+│    1: resource "cloudflare_pages_project" "this" {
+│ 
+│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/pages/projects": 401 Unauthorized {
+│   "result": null,
+│   "success": false,
+│   "errors": [
+│     {
+│       "code": 8000011,
+│       "message": "There is an internal issue with your Cloudflare Pages Git installation. If this issue persists after reinstalling your installation, contact support: https://xxx."
+│     }
+│   ],
+│   "messages": []
+│ }
+│ 
+╵
+```
+
+Fix: This probably means point 5 from prerequisites is not fulfilled.
+
