@@ -5,10 +5,11 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 1. Prepare fontend and backend repositories and follow theirs prerequisites
 2. Run "aws configure" to set access key id and secret access key
 3. Run docker daemon
-4. Create an Account API token with such permission: Account - Access: Identity Providers:Edit, Cloudflare Pages:Edit, Access: Apps and Policies:Edit. Remember to store your token before exiting as it won't be visible.
-5. Integrate frontend github with cloudflare. Go to Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
-6. Create a client id and a client secret for using Google as an identity provider. Follow this tutorial until step 9: https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/
-7. Create a tfvars file with all the needed values:
+4. Create an Account API token with 3 permissions: `Access: Identity Providers`, `Cloudflare Pages`, `Access: Apps and Policies`. For each select Account in the first column and Edit in the third column. Remember to store your token before exiting as it won't be visible afterwards.
+5. Integrate frontend github with cloudflare. Go to Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> wait for few seconds and click Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
+6. Enable zero trust on cloudflare. Go to Cloudflare website -> Protect & Connect -> Zero Trust -> Get started -> pick a name -> Zero Trust Free Select plan -> fillin a card details
+7. Create a client id and a client secret for using Google as an identity provider. Follow this tutorial until step 9: https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/
+8. Create a tfvars file with all the needed values:
 ```
 cloudflare = {
   account_id = "xxx"
@@ -61,31 +62,6 @@ terraform destroy -var-file=$VAR_FILE
 ```
 
 # Common errors
-```
-╷
-│ Error: failed to make http request
-│ 
-│   with module.frontend.cloudflare_pages_project.this,
-│   on modules/frontend/main.tf line 1, in resource "cloudflare_pages_project" "this":
-│    1: resource "cloudflare_pages_project" "this" {
-│ 
-│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/pages/projects": 401 Unauthorized {
-│   "result": null,
-│   "success": false,
-│   "errors": [
-│     {
-│       "code": 8000011,
-│       "message": "There is an internal issue with your Cloudflare Pages Git installation. If this issue persists after reinstalling your installation, contact support: https://xxx."
-│     }
-│   ],
-│   "messages": []
-│ }
-│ 
-╵
-```
-
-Fix: This probably means point 5 from prerequisites is not fulfilled.
-
 
 ```
 ╷
@@ -110,6 +86,80 @@ Fix: This probably means point 5 from prerequisites is not fulfilled.
 ╵
 ```
 
-Fix: This probably means point 3 from prerequisites is not fulfilled. To be able to create a zip package for AWS lambda I used docker. You need to install `Docker Desktop` https://www.docker.com/products/docker-desktop/ or check podman and run it before `terraform apply`.
+Fix: This probably means point 3 from prerequisites is not fulfilled. To be able to create a zip package for AWS lambda I used docker. You need to install `Docker Desktop` https://www.docker.com/products/docker-desktop/ or check `podman` and run it before `terraform apply`.
 
+
+```
+╷
+│ Error: failed to make http request
+│ 
+│   with module.frontend.cloudflare_pages_project.this,
+│   on modules/frontend/main.tf line 1, in resource "cloudflare_pages_project" "this":
+│    1: resource "cloudflare_pages_project" "this" {
+│ 
+│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/pages/projects": 401 Unauthorized {
+│   "result": null,
+│   "success": false,
+│   "errors": [
+│     {
+│       "code": 8000011,
+│       "message": "There is an internal issue with your Cloudflare Pages Git installation. If this issue persists after reinstalling your installation, contact support: https://xxx."
+│     }
+│   ],
+│   "messages": []
+│ }
+│ 
+╵
+```
+
+Fix: This probably means point 4 from prerequisites is not fulfilled.
+
+
+
+```
+╷
+│ Error: failed to make http request
+│ 
+│   with module.frontend.cloudflare_pages_project.this,
+│   on modules/frontend/main.tf line 1, in resource "cloudflare_pages_project" "this":
+│    1: resource "cloudflare_pages_project" "this" {
+│ 
+│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/pages/projects": 403 Forbidden
+│ {"success":false,"errors":[{"code":10000,"message":"Authentication error"}],"messages":[],"result":null}
+│ 
+╵
+╷
+│ Error: failed to make http request
+│ 
+│   with module.frontend.cloudflare_zero_trust_access_identity_provider.this,
+│   on modules/frontend/main.tf line 52, in resource "cloudflare_zero_trust_access_identity_provider" "this":
+│   52: resource "cloudflare_zero_trust_access_identity_provider" "this" {
+│ 
+│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/access/identity_providers": 403 Forbidden
+│ {"success":false,"errors":[{"code":10000,"message":"Authentication error"}],"messages":[],"result":null}
+│ 
+╵
+╷
+│ Error: failed to make http request
+│ 
+│   with module.frontend.cloudflare_zero_trust_access_policy.this,
+│   on modules/frontend/main.tf line 62, in resource "cloudflare_zero_trust_access_policy" "this":
+│   62: resource "cloudflare_zero_trust_access_policy" "this" {
+│ 
+│ POST "https://api.cloudflare.com/client/v4/accounts/xxx/access/policies": 403 Forbidden
+│ {"success":false,"errors":[{"code":10000,"message":"Authentication error"}],"messages":[],"result":null}
+│ 
+╵
+```
+
+Fix: This probably means point 6 from prerequisites is not fulfilled.
+
+```
+export CLOUDFLARE_API_TOKEN=<generated_from_point_4>
+export ACCOUNT_ID=<generated_from_point_4>
+
+curl https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/tokens/verify -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq '.messages[0].message'
+
+[ "$(curl -s https://api.cloudflare.com/client/v4/accounts -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq -r '.result[0].id')" = "$ACCOUNT_ID" ] && echo "Account ID is correct" || echo "Account ID missmatch"
+```
 
