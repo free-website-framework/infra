@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_iam_role" "this" {
-  name               = "lambda-role"
+  name               = "${var.project}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.this.json
 }
 
@@ -22,7 +22,7 @@ resource "aws_iam_role_policy_attachment" "logs" {
 }
 
 resource "aws_dynamodb_table" "this" {
-  name         = "fastapi-db"
+  name         = "${var.project}-db"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "pk"
   attribute {

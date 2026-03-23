@@ -2,6 +2,7 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 
 
 # Prerequisites
+
 1. Prepare fontend and backend repositories and follow theirs prerequisites
 2. Run "aws configure" to set access key id and secret access key
 3. Run docker daemon
@@ -11,15 +12,9 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 7. Create a client id and a client secret for using Google as an identity provider. Follow this tutorial until step 9: https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/
 8. Create a tfvars file with all the needed values:
 ```
-cloudflare = {
-  account_id = "xxx"
-  api_token  = "xxx"
-}
-google_identity_provider = {
-  client_id     = "xxx.apps.googleusercontent.com"
-  client_secret = "xxx"
-}
-email               = "xxx@gmail.com"
+domain_prefix = "my-very-own-website-unique" # The final website will be hosted at https://<domain_prefix>.pages.dev/ if domain_prefix is world wide unique.
+project = "my-website"                       # Prefix to all names and label
+env = "dev"
 
 backend_github = {
   owner               = "<put your owner here>"
@@ -34,6 +29,16 @@ frontend_github = {
   repo   = "<project>-frontend"
   branch = "main"
 }
+
+cloudflare = {
+  account_id = "xxx"
+  api_token  = "xxx"
+}
+google_identity_provider = {
+  client_id     = "xxx.apps.googleusercontent.com"
+  client_secret = "xxx"
+}
+email = "xxx@gmail.com"
 ```
 
 
