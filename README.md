@@ -168,3 +168,11 @@ curl https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/tokens/verify -H 
 [ "$(curl -s https://api.cloudflare.com/client/v4/accounts -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq -r '.result[0].id')" = "$ACCOUNT_ID" ] && echo "Account ID is correct" || echo "Account ID missmatch"
 ```
 
+
+# Debug deployment errors
+
+Before you deploy your infrastructure you should have a working local changes. This minimise debuging effort on cloudflare and AWS which is much harder.
+
+1. Check connection between frontend and backend:
+    Go to Cloudflare -> Build -> Compute -> Workers & Pages -> select your page -> View details -> Functions -> Begin log stream -> trigger running some backend endpoints on frontend and wait for logs
+
