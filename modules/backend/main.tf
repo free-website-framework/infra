@@ -1,3 +1,19 @@
+resource "aws_resourcegroups_group" "this" {
+  name = "${var.project}-group"
+
+  resource_query {
+    query = jsonencode({
+      ResourceTypeFilters = ["AWS::AllSupported"]
+      TagFilters = [
+        {
+          Key    = "Project"
+          Values = [var.project]
+        },
+      ]
+    })
+  }
+}
+
 data "aws_iam_policy_document" "this" {
   statement {
     effect = "Allow"
