@@ -6,6 +6,10 @@ variable "project" {
 variable "env" {
   type    = string
   default = "dev"
+  validation {
+    condition     = contains(["dev", "prod"], var.env)
+    error_message = "Environment must be either 'dev' or 'prod'."
+  }
 }
 
 variable "backend_github" {

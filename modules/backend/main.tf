@@ -29,6 +29,8 @@ resource "aws_dynamodb_table" "this" {
     name = "pk"
     type = "S"
   }
+
+  deletion_protection_enabled = var.env == "prod"
 }
 
 resource "aws_iam_role_policy" "dynamo" {
