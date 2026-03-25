@@ -1,7 +1,7 @@
 variable "name_prefix" { type = string }
 variable "account_id" { type = string }
 variable "api_token" { type = string }
-variable "email" { type = string }
+variable "emails" { type = list(string) }
 variable "google_client_id" { type = string }
 variable "google_client_secret" { type = string }
 variable "domain_prefix" { type = string }

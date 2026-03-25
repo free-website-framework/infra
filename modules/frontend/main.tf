@@ -56,11 +56,13 @@ resource "cloudflare_zero_trust_access_policy" "this" {
   decision   = "allow"
   name       = "${var.name_prefix}-pages-policy"
 
-  include = [{
-    email = {
-      email = "${var.email}"
+  include = [
+    for e in var.emails : {
+      email = {
+        email = e
+      }
     }
-  }]
+  ]
 }
 
 resource "cloudflare_zero_trust_access_application" "this" {

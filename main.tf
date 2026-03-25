@@ -16,7 +16,7 @@ module "frontend" {
   name_prefix          = var.project
   account_id           = var.cloudflare.account_id
   api_token            = var.cloudflare.api_token
-  email                = var.email
+  emails               = var.emails
   google_client_id     = var.google_identity_provider.client_id
   google_client_secret = var.google_identity_provider.client_secret
   domain_prefix        = var.domain_prefix

@@ -56,7 +56,7 @@ variable "google_identity_provider" {
   })
 }
 
-variable "email" { type = string }
+variable "emails" { type = list(string) }
 
 variable "domain_prefix" {
   type        = string
