@@ -127,7 +127,7 @@ Fix: This probably means point 3 from prerequisites is not fulfilled. To be able
 ╵
 ```
 
-Fix: This probably means point 4 from prerequisites is not fulfilled.
+Fix: This probably means point 5 from prerequisites is not fulfilled. If you have installed cloudflare app on github you can try to remove it and add it again.
 
 
 
@@ -185,4 +185,6 @@ Before you deploy your infrastructure you should have a working local changes. T
 
 1. Check connection between frontend and backend:
     Go to Cloudflare -> Build -> Compute -> Workers & Pages -> select your page -> View details -> Functions -> Begin log stream -> trigger running some backend endpoints on frontend and wait for logs
+
+2. If when you try to see a website and you choose a google to sign in with but you got an error `400: redirect_uri_mismatch` you should double check if cloudflare zero trust team name match what is in google identity provider. Check zero trust team name in cloudflare -> Protect & Connect -> Zero Trust -> Settings -> Team name. Then go to https://console.cloud.google.com/ and search for `Google Auth Platform`. Go to `Clients` select `cloudflare` and check if URIs match https://<zero-trust-team-name>.cloudflareaccess.com.
 
