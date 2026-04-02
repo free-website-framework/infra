@@ -130,7 +130,6 @@ Fix: This probably means point 3 from prerequisites is not fulfilled. To be able
 Fix: This probably means point 5 from prerequisites is not fulfilled. If you have installed cloudflare app on github you can try to remove it and add it again.
 
 
-
 ```
 ╷
 │ Error: failed to make http request
@@ -167,7 +166,8 @@ Fix: This probably means point 5 from prerequisites is not fulfilled. If you hav
 ╵
 ```
 
-Fix: This probably means point 6 from prerequisites is not fulfilled.
+Fix: This probably means point 6 from prerequisites is not fulfilled. You should run bolow commands also if you got errors for GET with 401 Unauthorized.
+
 
 ```
 export CLOUDFLARE_API_TOKEN=<generated_from_point_4>
