@@ -55,7 +55,7 @@ Then open the output url and test if you can login.
 
 You can create a request to backend in Insomnia with Auth AWS IAM set with values from terraform console
 ```
-> module.backend.url
+> nonsensitive(module.backend.url)
 > nonsensitive(module.backend.access_key.id)
 > nonsensitive(module.backend.access_key.secret)
 ```
