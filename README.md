@@ -4,7 +4,7 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 # Prerequisites
 
 1. Prepare fontend and backend repositories and follow theirs prerequisites
-2. Run "aws configure" to set access key id and secret access key
+2. Run `aws configure` to set access key id and secret access key
 3. Run docker daemon
 4. Create an Account API token with 3 permissions: `Access: Identity Providers`, `Cloudflare Pages`, `Access: Apps and Policies`. For each select Account in the first column and Edit in the third column. Remember to store your token before exiting as it won't be visible afterwards.
 5. Integrate frontend github with cloudflare. Go to Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> wait for few seconds and click Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
@@ -72,7 +72,7 @@ terraform destroy -var-file=$VAR_FILE
 
 When you do any changes to either frontend or backend you must push them to github.
 Then if you only changed frontend, cloudflare will automatically see the changes and they will be applied.
-However if you want to apply changes to AWS lambda backend you have to run 'terraform apply'.
+However if you want to apply changes to AWS lambda backend you have to run `terraform apply`.
 You don't have to change any tfvars as github change will be visible in terraform and the code will be updated. 
 
 
