@@ -6,9 +6,9 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 1. Prepare fontend and backend repositories and follow theirs prerequisites
 2. Run `aws configure` to set access key id and secret access key
 3. Run docker daemon
-4. Create an Account API token with 3 permissions: `Access: Identity Providers`, `Cloudflare Pages`, `Access: Apps and Policies`. For each select Account in the first column and Edit in the third column. Remember to store your token before exiting as it won't be visible afterwards.
-5. Integrate frontend github with cloudflare. Go to Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> wait for few seconds and click Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
-6. Enable zero trust on cloudflare. Go to Cloudflare website -> Protect & Connect -> Zero Trust -> Get started -> pick a name -> Zero Trust Free Select plan -> fillin a card details
+4. Create a Cloudflare Account API token with 3 permissions: `Access: Identity Providers`, `Cloudflare Pages`, `Access: Apps and Policies`. For each select Account in the first column and Edit in the third column. Remember to store your token before exiting as it won't be visible afterwards.
+5. Integrate frontend github with Cloudflare. Go to a Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> wait for few seconds and click Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
+6. Enable zero trust on Cloudflare. Go to a Cloudflare website -> Protect & Connect -> Zero Trust -> Get started -> pick a name -> Zero Trust Free Select plan -> fillin a card details
 7. Create a client id and a client secret for using Google as an identity provider. Follow this tutorial until step 9: https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/
 8. Create a tfvars file with all the needed values:
 ```

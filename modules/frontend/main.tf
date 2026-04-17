@@ -52,10 +52,9 @@ resource "cloudflare_zero_trust_access_identity_provider" "this" {
 }
 
 resource "cloudflare_zero_trust_access_policy" "this" {
-  account_id       = var.account_id
-  decision         = "allow"
-  name             = "${var.name_prefix}-pages-policy"
-  session_duration = "168h"
+  account_id = var.account_id
+  decision   = "allow"
+  name       = "${var.name_prefix}-pages-policy"
 
   include = [
     for e in var.emails : {
@@ -70,7 +69,7 @@ resource "cloudflare_zero_trust_access_application" "this" {
   account_id       = var.account_id
   name             = "${var.name_prefix}-pages-access"
   domain           = cloudflare_pages_project.this.subdomain
-  session_duration = "24h"
+  session_duration = "168h"
   type             = "self_hosted"
   allowed_idps     = [cloudflare_zero_trust_access_identity_provider.this.id]
   policies = [
