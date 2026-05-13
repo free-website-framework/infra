@@ -52,9 +52,10 @@ resource "cloudflare_zero_trust_access_identity_provider" "this" {
 }
 
 resource "cloudflare_zero_trust_access_policy" "this" {
-  account_id = var.account_id
-  decision   = "allow"
-  name       = "${var.name_prefix}-pages-policy"
+  account_id       = var.account_id
+  decision         = "allow"
+  name             = "${var.name_prefix}-pages-policy"
+  session_duration = "168h"
 
   include = [
     for e in var.emails : {
