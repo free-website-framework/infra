@@ -10,3 +10,11 @@ output "access_key" {
   }
   sensitive = true
 }
+
+output "github_actions_role_name" {
+  value = aws_iam_role.github_actions.name
+}
+
+output "ecr_repo_name" {
+  value = aws_ecr_repository.this.name
+}

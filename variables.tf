@@ -14,18 +14,12 @@ variable "env" {
 
 variable "backend_github" {
   type = object({
-    owner               = string
-    repo                = string
-    branch              = string
-    python_version      = string
-    mangun_handler_path = string
+    owner = string
+    repo  = string
   })
   default = {
-    owner               = "free-website-framework"
-    repo                = "backend"
-    branch              = "main"
-    python_version      = "3.14"
-    mangun_handler_path = "app.main.handler"
+    owner = "free-website-framework"
+    repo  = "backend"
   }
 }
 

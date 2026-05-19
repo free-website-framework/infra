@@ -8,6 +8,7 @@ variable "env" {
 }
 variable "github_owner" { type = string }
 variable "github_repo" { type = string }
-variable "github_branch" { type = string }
-variable "mangun_handler_path" { type = string }
-variable "python_version" { type = string }
+variable "image_name" {
+  type    = string
+  default = "backend"
+}

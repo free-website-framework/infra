@@ -60,11 +60,8 @@ resource "aws_iam_role_policy" "dynamo" {
 resource "aws_lambda_function" "this" {
   function_name = "${var.project}-lambda"
   role          = aws_iam_role.this.arn
-  filename      = archive_file.package.output_path
-  code_sha256   = archive_file.package.output_base64sha256
-  handler       = var.mangun_handler_path
-  runtime       = "python${var.python_version}"
-  architectures = ["arm64"]
+  package_type  = "Image"
+  image_uri     = "${aws_ecr_repository.this.repository_url}/${var.image_name}:latest"
 
   environment {
     variables = {
