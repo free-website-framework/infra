@@ -12,10 +12,6 @@ output "ECR_REPOSITORY" {
   value = module.backend.ecr_repo_name
 }
 
-output "ECR_IMAGE" {
-  value = module.backend.variables.image_name
-}
-
-output "forontend url" {
+output "frontend_url" {
   value = module.frontend.url
 }

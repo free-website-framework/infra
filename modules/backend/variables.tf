@@ -8,7 +8,3 @@ variable "env" {
 }
 variable "github_owner" { type = string }
 variable "github_repo" { type = string }
-variable "image_name" {
-  type    = string
-  default = "backend"
-}
