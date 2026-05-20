@@ -63,6 +63,7 @@ resource "aws_lambda_function" "this" {
   role          = aws_iam_role.this.arn
   package_type  = "Image"
   image_uri     = local.dummy_image_uri
+  architectures = ["arm64"]
 
   environment {
     variables = {
