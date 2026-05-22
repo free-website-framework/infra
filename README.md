@@ -10,7 +10,13 @@ This repo is a part of https://github.com/free-website-framework. Go to the link
 5. Integrate frontend github with Cloudflare. Go to a Cloudflare website -> Build -> Compute -> Workers & Pages -> Create application -> wait for few seconds and click Connect GitHub -> after selecting repos click Install & Authorize and you can close the website. The rest will be done from terraform. https://developers.cloudflare.com/pages/get-started/git-integration/
 6. Enable zero trust on Cloudflare. Go to a Cloudflare website -> Protect & Connect -> Zero Trust -> Get started -> pick a name -> Zero Trust Free Select plan -> fillin a card details
 7. Create a client id and a client secret for using Google as an identity provider. Follow this tutorial until step 9: https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/
-8. Create a tfvars file with all the needed values:
+8. This infrastructure needs an OIDC provider for GitHub in AWS. Such provider can be created once per account so if you don't have it already you can create it like:
+```
+aws iam create-open-id-connect-provider \
+  --url https://token.actions.githubusercontent.com \
+  --client-id-list sts.amazonaws.com
+```
+9. Create a tfvars file with all the needed values:
 ```
 domain_prefix = "my-very-own-website-unique" # The final website will be hosted at https://<domain_prefix>.pages.dev/ if domain_prefix is world wide unique.
 project = "my-website"                       # Prefix to all names and label

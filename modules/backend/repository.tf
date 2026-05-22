@@ -1,6 +1,7 @@
 resource "aws_ecr_repository" "this" {
   name                 = "${var.project}-backend"
   image_tag_mutability = "IMMUTABLE"
+  force_delete         = var.env == "dev"
 }
 
 locals {
