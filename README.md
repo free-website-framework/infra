@@ -74,14 +74,6 @@ terraform destroy -var-file=$VAR_FILE
 ```
 
 
-# How to apply changes
-
-When you do any changes to either frontend or backend you must push them to github.
-Then if you only changed frontend, cloudflare will automatically see the changes and they will be applied.
-However if you want to apply changes to AWS lambda backend you have to run `terraform apply`.
-You don't have to change any tfvars as github change will be visible in terraform and the code will be updated. 
-
-
 # Common errors
 
 ```
