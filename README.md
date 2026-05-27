@@ -25,9 +25,6 @@ env = "dev"
 backend_github = {
   owner               = "<put your owner here>"
   repo                = "<project>-backend"
-  branch              = "main"
-  python_version      = "3.14"
-  mangun_handler_path = "app.main.handler"
 }
 
 frontend_github = {
@@ -44,7 +41,7 @@ google_identity_provider = {
   client_id     = "xxx.apps.googleusercontent.com"
   client_secret = "xxx"
 }
-email = "xxx@gmail.com"
+emails = ["xxx@gmail.com"]
 ```
 
 
