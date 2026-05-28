@@ -16,10 +16,13 @@ resource "null_resource" "bootstrap_dummy_image" {
 
   provisioner "local-exec" {
     command = <<EOT
+    set -e
     aws ecr get-login-password | docker login --username AWS --password-stdin ${aws_ecr_repository.this.repository_url}
 
-    docker import /dev/null ${local.dummy_image_uri}
-    docker push ${local.dummy_image_uri}
+    docker pull ${local.dummy_image_uri} > /dev/null 2>&1 || {
+      docker import /dev/null ${local.dummy_image_uri}
+      docker push ${local.dummy_image_uri}
+    }
     EOT
   }
 }
